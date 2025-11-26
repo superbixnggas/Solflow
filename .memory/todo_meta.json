@@ -1,0 +1,69 @@
+{
+  "todos": {
+    "Coordinator": {
+      "1": {
+        "id": "1",
+        "content": "Persiapan dan Research API Solana",
+        "details": "1. Research Jupiter API untuk quote dan swap. 2. Research Pyth Price API untuk data harga real-time. 3. Research Helius API untuk transaksi Solana. 4. Research Solana RPC untuk wallet connection. 5. Setup struktur project dan dependencies.",
+        "status": "pending",
+        "priority": "high"
+      },
+      "2": {
+        "id": "2",
+        "content": "Backend Development - Database & Models",
+        "details": "1. Setup Prisma ORM dengan database PostgreSQL. 2. Buat schema untuk user_wallets, portfolio_data, target_allocations, rebalance_plans, dan transaction_logs. 3. Setup koneksi database dan konfigurasi Prisma.",
+        "status": "pending",
+        "priority": "high"
+      },
+      "3": {
+        "id": "3",
+        "content": "Backend Development - Core API Endpoints",
+        "details": "1. POST /api/auth/connect - connect wallet dan inisialisasi portfolio. 2. GET /api/portfolio/:publicKey - ambil data portfolio lengkap. 3. POST /api/portfolio/target - simpan target allocation. 4. Setup Express server dan middleware.",
+        "status": "pending",
+        "priority": "high"
+      },
+      "4": {
+        "id": "4",
+        "content": "Backend Development - Rebalance Logic",
+        "details": "1. GET /api/rebalance/check/:publicKey - cek deviasi portfolio. 2. POST /api/rebalance/plan - generate rencana swap via Jupiter API. 3. POST /api/rebalance/execute - create transaction payload. 4. Implementasi validasi transaksi dan error handling.",
+        "status": "pending",
+        "priority": "high"
+      },
+      "5": {
+        "id": "5",
+        "content": "Backend Development - Worker System",
+        "details": "1. Buat worker yang berjalan setiap 5 menit. 2. Worker ambil semua portfolio dari database. 3. Hitung deviasi terhadap target. 4. Generate rencana rebalance jika perlu. 5. Simpan log ke database. 6. Setup scheduling dengan node-cron atau similar.",
+        "status": "pending",
+        "priority": "medium"
+      },
+      "6": {
+        "id": "6",
+        "content": "Frontend Development - Core Components",
+        "details": "1. Setup React project dengan TypeScript dan Tailwind. 2. Buat komponen WalletConnect (Phantom, Backpack, Solflare). 3. Buat komponen PortfolioDashboard untuk menampilkan token, saldo, harga, persentase. 4. Setup routing dan layout dasar.",
+        "status": "pending",
+        "priority": "high"
+      },
+      "7": {
+        "id": "7",
+        "content": "Frontend Development - Target & Rebalance UI",
+        "details": "1. Buat halaman TargetAllocation untuk mengatur persentase token. 2. Buat halaman Rebalance untuk menampilkan deviasi dan rencana swap. 3. Implementasi komponen untuk approve/sign transaksi. 4. Real-time updates untuk portfolio status.",
+        "status": "pending",
+        "priority": "medium"
+      },
+      "8": {
+        "id": "8",
+        "content": "Integration & Testing",
+        "details": "1. Connect frontend dengan backend APIs. 2. Test wallet connection dengan semua provider (Phantom, Backpack, Solflare). 3. Test portfolio tracking dengan SPL tokens real. 4. Test rebalance flow dengan Jupiter API. 5. Test worker system dan auto-rebalance logic. 6. Error handling dan edge cases.",
+        "status": "pending",
+        "priority": "medium"
+      },
+      "9": {
+        "id": "9",
+        "content": "Deployment & Documentation",
+        "details": "1. Setup production environment untuk backend. 2. Deploy backend ke cloud provider. 3. Setup database production. 4. Configure worker system di production. 5. Buat API documentation. 6. Buat user guide untuk aplikasi.",
+        "status": "pending",
+        "priority": "low"
+      }
+    }
+  }
+}
