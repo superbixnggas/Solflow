@@ -1,0 +1,101 @@
+// Prisma Schema untuk CoinFlow Solana Portfolio Optimizer
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserWallet {
+  id              String            @id @default(cuid())
+  publicKey       String            @unique
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  portfolios      PortfolioData[]
+  targets         TargetAllocation[]
+  rebalancePlans  RebalancePlan[]
+  transactions    TransactionLog[]
+
+  @@index([publicKey])
+}
+
+model PortfolioData {
+  id          String      @id @default(cuid())
+  publicKey   String
+  tokenMint   String
+  tokenSymbol String
+  balance     Float
+  priceUSD    Float
+  valueUSD    Float
+  percentage  Float
+  timestamp   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  userWallet  UserWallet  @relation(fields: [publicKey], references: [publicKey], onDelete: Cascade)
+
+  @@index([publicKey])
+  @@index([tokenMint])
+  @@unique([publicKey, tokenMint])
+}
+
+model TargetAllocation {
+  id               String      @id @default(cuid())
+  publicKey        String
+  tokenMint        String
+  tokenSymbol      String
+  targetPercentage Float
+  threshold        Float       // Deviasi yang diizinkan
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  userWallet       UserWallet  @relation(fields: [publicKey], references: [publicKey], onDelete: Cascade)
+
+  @@index([publicKey])
+  @@unique([publicKey, tokenMint])
+}
+
+model RebalancePlan {
+  id          String      @id @default(cuid())
+  publicKey   String
+  status      String      // pending, executed, failed
+  totalValue  Float
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  swaps       SwapPlan[]
+  userWallet  UserWallet  @relation(fields: [publicKey], references: [publicKey], onDelete: Cascade)
+
+  @@index([publicKey])
+  @@index([status])
+}
+
+model SwapPlan {
+  id              String         @id @default(cuid())
+  rebalancePlanId String
+  fromToken       String
+  fromSymbol      String
+  toToken         String
+  toSymbol        String
+  fromAmount      Float
+  toAmount        Float
+  priceImpact     Float
+  jupiterQuote    String         @db.Text // JSON response dari Jupiter API
+  createdAt       DateTime       @default(now())
+  rebalancePlan   RebalancePlan  @relation(fields: [rebalancePlanId], references: [id], onDelete: Cascade)
+
+  @@index([rebalancePlanId])
+}
+
+model TransactionLog {
+  id          String      @id @default(cuid())
+  publicKey   String
+  txSignature String      @unique
+  status      String      // pending, success, failed
+  type        String      // rebalance, manual
+  details     String?     @db.Text // JSON details
+  createdAt   DateTime    @default(now())
+  userWallet  UserWallet  @relation(fields: [publicKey], references: [publicKey], onDelete: Cascade)
+
+  @@index([publicKey])
+  @@index([status])
+}
