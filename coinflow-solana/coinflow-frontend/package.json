@@ -9,14 +9,26 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@solana/wallet-adapter-base": "^0.9.27",
+    "@solana/wallet-adapter-react": "^0.15.39",
+    "@solana/wallet-adapter-react-ui": "^0.9.39",
+    "@solana/wallet-adapter-wallets": "^0.19.37",
+    "@solana/web3.js": "^1.98.4",
+    "@supabase/supabase-js": "^2.86.0",
+    "@types/node": "^24.10.1",
+    "axios": "^1.13.2",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.23.24",
     "lucide-react": "^0.364.0",
     "pnpm-store": "link:/tmp/pnpm-store",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.6.0",
     "react-router-dom": "^6.30.0",
-    "tailwind-merge": "^2.6.0"
+    "recharts": "^3.5.0",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7",
+    "vite-plugin-node-polyfills": "^0.24.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.20",

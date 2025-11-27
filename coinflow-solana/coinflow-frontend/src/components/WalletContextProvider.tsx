@@ -18,7 +18,7 @@ interface WalletContextProviderProps {
   children: ReactNode;
 }
 
-export const WalletContextProvider: FC<WalletContextProviderProps> = ({ children }) => {
+const WalletContextProvider: FC<WalletContextProviderProps> = ({ children }) => {
   // Network dapat diubah ke mainnet-beta untuk production
   const network = WalletAdapterNetwork.Devnet;
 
@@ -44,3 +44,5 @@ export const WalletContextProvider: FC<WalletContextProviderProps> = ({ children
     </ConnectionProvider>
   );
 };
+
+export default WalletContextProvider;

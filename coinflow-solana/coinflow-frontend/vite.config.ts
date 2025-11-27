@@ -26,12 +26,13 @@ export default defineConfig({
   build: {
     target: 'esnext',
     rollupOptions: {
-      output: {
-        manualChunks: {
-          'solana-wallet': ['@solana/wallet-adapter-react', '@solana/wallet-adapter-react-ui', '@solana/wallet-adapter-wallets'],
-          'solana-web3': ['@solana/web3.js'],
-        }
-      }
+      external: [
+        '@solana/web3.js',
+        '@solana/wallet-adapter-react',
+        '@solana/wallet-adapter-react-ui',
+        '@solana/wallet-adapter-wallets',
+        '@solana/wallet-adapter-base'
+      ]
     }
   },
 })
