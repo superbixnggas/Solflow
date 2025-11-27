@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Wallet, TrendingUp, Target, Shield, RefreshCw, WalletConnect } from 'lucide-react';
+import { Wallet, TrendingUp, Target, Shield, RefreshCw, UserPlus } from 'lucide-react';
 import { useCoinFlowWallet } from '../context/WalletContext';
 
 const WalletConnectReal: React.FC = () => {
@@ -151,7 +151,7 @@ const WalletConnectReal: React.FC = () => {
                             className="w-6 h-6 border-2 border-white border-t-transparent rounded-full"
                           />
                         ) : (
-                          <WalletConnect className="w-6 h-6 text-white" />
+                          <UserPlus className="w-6 h-6 text-white" />
                         )}
                       </div>
                       <h3 className="text-white font-semibold mb-1">Hubungkan Wallet</h3>

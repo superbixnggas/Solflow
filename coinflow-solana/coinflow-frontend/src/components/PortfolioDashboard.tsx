@@ -25,8 +25,8 @@ const PortfolioDashboard: FC = () => {
     try {
       setLoading(true);
       const data = await getPortfolio(publicKey.toString());
-      setTokens(data.tokens);
-      setTotalValue(data.totalValue);
+      setTokens(data.data?.tokens || []);
+      setTotalValue(data.data?.totalValue || 0);
       setLastUpdate(new Date());
     } catch (error) {
       console.error('Error fetching portfolio:', error);

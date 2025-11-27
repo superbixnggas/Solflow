@@ -1,9 +1,10 @@
 import React, { useState, useEffect, createContext, useContext, ReactNode } from 'react';
-import { WalletProvider, useWallet, ConnectionProvider } from '@solana/wallet-adapter-react';
+import { WalletProvider, ConnectionProvider } from '@solana/wallet-adapter-react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { PhantomWalletAdapter, SolflareWalletAdapter, BackpackWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl, Connection } from '@solana/web3.js';
+import { useWallet as useWalletAdapter } from '@solana/wallet-adapter-react';
 
 // Import wallet adapter CSS
 import '@solana/wallet-adapter-react-ui/styles.css';
@@ -36,7 +37,7 @@ export const WalletContextProvider: React.FC<WalletContextProviderProps> = ({ ch
   const wallets = [
     new PhantomWalletAdapter(),
     new SolflareWalletAdapter({ network }),
-    new BackpackWalletAdapter(),
+    // Backpack wallet akan ditambahkan saat wallet-adapter mendukungnya
   ];
 
   return (
@@ -53,7 +54,7 @@ export const WalletContextProvider: React.FC<WalletContextProviderProps> = ({ ch
 };
 
 const WalletStateProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const { wallet, connected, connecting, disconnecting, publicKey, connect, disconnect } = useWallet();
+  const { wallet, connected, connecting, disconnecting, publicKey, connect, disconnect } = useWalletAdapter();
   const [balance, setBalance] = useState(0);
   const [connection, setConnection] = useState<Connection | null>(null);
 
@@ -87,7 +88,7 @@ const WalletStateProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
       return () => {
         conn.removeAccountChangeListener(subscriptionId);
-        conn.close();
+        // Connection cleanup is handled automatically by Solana Web3.js
       };
     } else {
       setConnection(null);
@@ -123,6 +124,33 @@ export const useWalletContext = () => {
 };
 
 // Custom hooks for easy integration
+// Export useWallet for compatibility
+export const useWallet = () => {
+  const {
+    wallet,
+    connected,
+    connecting,
+    disconnecting,
+    publicKey,
+    walletType,
+    balance,
+    connect,
+    disconnect
+  } = useWalletContext();
+  
+  return {
+    wallet,
+    connected,
+    connecting,
+    disconnecting,
+    publicKey,
+    walletType,
+    balance,
+    connect,
+    disconnect
+  };
+};
+
 export const useCoinFlowWallet = () => {
   const {
     wallet,
